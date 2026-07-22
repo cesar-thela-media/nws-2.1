@@ -240,8 +240,9 @@ const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6">
-        <nav className="w-full flex items-center justify-between gap-3 h-14 sm:h-16">
+        <nav className="w-full flex items-center justify-between gap-3 h-16 sm:h-[4.25rem]">
           <Link href="/" className="shrink-0" aria-label="NWS home">
+            {/* Official nws-homes.com gbp.png — white plate when over dark hero */}
             <Logo onDark={overHero} />
           </Link>
 

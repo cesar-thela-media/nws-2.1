@@ -42,7 +42,7 @@ function HeroSection({
       className={[
         "relative w-full max-w-none overflow-x-clip",
         /* Pull under sticky navbar so transparent chrome sits on the image */
-        "-mt-14 sm:-mt-16",
+        "-mt-16 sm:-mt-[4.25rem]",
         "flex items-center justify-center",
         "min-h-[min(100svh,720px)]",
         "sm:min-h-[min(88svh,780px)]",
