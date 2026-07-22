@@ -41,7 +41,12 @@ yarn-error.log*
 next-env.d.ts
 
 scraped/
-*.png
-nws-home-full.png
-nws-clone-home.png
+# Local screenshots at repo root only (keep public/images assets)
+/*.png
+/nws-home-full.png
+/nws-clone-home.png
+/glyph-home-viewport.png
+/header-*.png
+/areas-marquee*.png
+/home-top.png
 .playwright-mcp/
