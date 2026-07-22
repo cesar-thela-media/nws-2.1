@@ -58,8 +58,8 @@ const Footer = () => {
           <div className="py-12 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 lg:grid-cols-12 gap-x-8 gap-y-10 px-6 xl:px-0">
             <div className="col-span-full lg:col-span-4">
               <div className="flex flex-col gap-6">
-                <a href="/" className="brightness-0 invert w-fit">
-                  <Logo />
+                <a href="/" className="w-fit">
+                  <Logo variant="full" onDark />
                 </a>
                 <p className="text-base font-normal text-white/85 !m-0">
                   Custom homes & remodeling · Richmond, TX since 2007

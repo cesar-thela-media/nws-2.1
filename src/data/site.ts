@@ -22,7 +22,10 @@ export const site = {
     houzz:
       "https://www.houzz.com/professionals/home-builders/nws-custom-homes-and-remodeling-pfvwus-pf~849721310",
   },
+  /** Full stacked brand mark (footer / large placements) */
   logo: "/images/gbp.png",
+  /** Horizontal navbar mark (SVG path used by Logo mark variant) */
+  logoMark: "/images/logo-nws-horizontal.svg",
   mapSmall: "/images/nws-custom-homes-and-remodeling-small-map.webp",
   mapFull: "/images/nws-custom-homes-and-remodeling-full-map.webp",
 } as const;

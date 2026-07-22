@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 40" fill="none" role="img" aria-label="NWS Custom Homes and Remodeling">
+  <!-- Dual roof mark -->
+  <path d="M4 22 L22 6 L40 22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 22 L34 6 L52 22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="28" cy="16" r="2.2" fill="#FF4500"/>
+  <!-- Wordmark -->
+  <text x="62" y="18" font-family="Georgia, 'Times New Roman', Times, serif" font-size="18" font-weight="700" fill="currentColor" letter-spacing="0.06em">NWS</text>
+  <text x="62" y="32" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="8.5" font-weight="600" fill="currentColor" opacity="0.75" letter-spacing="0.14em">CUSTOM HOMES</text>
+</svg>
