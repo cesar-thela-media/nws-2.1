@@ -9,23 +9,32 @@ type RollerItem = {
 };
 
 export type AnimatedTextRollerProps = {
-  /** Static line above the roller (e.g. "Custom homes & remodels in") */
+  /** Line 1 — static (e.g. "Custom homes & remodels in") */
   prefix?: string;
   items: RollerItem[];
   intervalMs?: number;
+  /** Applied to every city (item.color ignored when forceDefault) */
   defaultColor?: string;
+  /** Always use defaultColor (no per-item colors) */
+  forceDefaultColor?: boolean;
   className?: string;
 };
 
 /**
- * Hero location roller — one city at a time, full text visible, centered under prefix.
- * Fixed line box + rem-step translate (not % of full stack).
+ * Two-line hero roller:
+ *   Line 1: prefix (white)
+ *   Line 2: ONE location at a time (orange)
+ *
+ * Line height is fixed in rem so clip + translate stay locked (no letter bleed).
  */
+const LINE_REM = 1.25; // rem — must match each item box + step
+
 const AnimatedTextRoller = ({
   prefix,
   items,
   intervalMs = 2200,
   defaultColor = "text-primary",
+  forceDefaultColor = true,
   className,
 }: AnimatedTextRollerProps) => {
   const [index, setIndex] = useState(0);
@@ -38,53 +47,49 @@ const AnimatedTextRoller = ({
     return () => clearInterval(id);
   }, [items.length, intervalMs]);
 
-  // Longest label sets min-width so layout doesn’t jump between cities
-  const longest = items.reduce(
-    (a, b) => (b.text.length > a.length ? b.text : a),
-    items[0]?.text ?? "",
-  );
-
   return (
     <span
       className={cn(
-        "flex w-full max-w-full flex-col items-center gap-1 sm:gap-1.5",
+        "flex w-full max-w-full flex-col items-center gap-0",
         className,
       )}
     >
       {prefix ? (
-        <span className="block w-full text-center text-white text-balance px-1">
+        <span className="block w-full text-center text-white text-balance px-1 leading-[1.15]">
           {prefix}
         </span>
       ) : null}
 
-      {/* One-line viewport — clips to a single city */}
+      {/* Fixed-height clip: one city only — rem units prevent partial letters */}
       <span
         className="relative mx-auto block w-full max-w-full overflow-hidden text-center"
-        style={{ height: "1.15em" }}
+        style={{
+          height: `${LINE_REM}em`,
+          // Isolate paint so scrolled letters never show outside
+          contain: "paint",
+        }}
         aria-live="polite"
         aria-atomic="true"
       >
-        {/* Invisible sizer so width fits longest city without horizontal clip */}
         <span
-          className="invisible block whitespace-nowrap px-1"
-          aria-hidden
-          style={{ height: 0, overflow: "hidden" }}
-        >
-          {longest}
-        </span>
-
-        <span
-          className="flex flex-col items-center transition-transform duration-700 ease-in-out will-change-transform"
-          style={{ transform: `translateY(calc(-${index} * 1.15em))` }}
+          className="flex flex-col items-center will-change-transform transition-transform duration-700 ease-in-out"
+          style={{
+            transform: `translate3d(0, calc(-${index} * ${LINE_REM}em), 0)`,
+          }}
         >
           {items.map((item, i) => (
             <span
               key={`${item.text}-${i}`}
               className={cn(
                 "flex w-full shrink-0 items-center justify-center whitespace-nowrap px-1",
-                item.color ?? defaultColor,
+                forceDefaultColor
+                  ? defaultColor
+                  : (item.color ?? defaultColor),
               )}
-              style={{ height: "1.15em", lineHeight: "1.15em" }}
+              style={{
+                height: `${LINE_REM}em`,
+                lineHeight: `${LINE_REM}em`,
+              }}
               aria-hidden={i !== index}
             >
               {item.text}

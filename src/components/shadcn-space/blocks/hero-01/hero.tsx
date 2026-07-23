@@ -42,15 +42,15 @@ function HeroSection({
   headline = "Custom homes & remodels in",
   highlight = "Richmond, TX",
   locations = [
-    { text: "Richmond, TX", color: "text-primary" },
-    { text: "Sugar Land, TX", color: "text-amber-300" },
-    { text: "Katy, TX", color: "text-emerald-300" },
-    { text: "Fulshear, TX", color: "text-sky-300" },
-    { text: "Cinco Ranch, TX", color: "text-fuchsia-300" },
-    { text: "Rosenberg, TX", color: "text-yellow-300" },
-    { text: "Weston Lakes, TX", color: "text-rose-300" },
-    { text: "Park Row, TX", color: "text-orange-300" },
-    { text: "West Houston, TX", color: "text-teal-300" },
+    { text: "Richmond, TX" },
+    { text: "Sugar Land, TX" },
+    { text: "Katy, TX" },
+    { text: "Fulshear, TX" },
+    { text: "Cinco Ranch, TX" },
+    { text: "Rosenberg, TX" },
+    { text: "Weston Lakes, TX" },
+    { text: "Park Row, TX" },
+    { text: "West Houston, TX" },
   ],
   locationIntervalMs = 2200,
   subhead = "Local team since 2007. Kitchens, baths, whole-home renovations, additions, and custom builds—planned and built with clear communication.",
@@ -112,10 +112,13 @@ function HeroSection({
                 prefix={headline}
                 items={locations}
                 intervalMs={locationIntervalMs}
+                defaultColor="text-primary"
+                forceDefaultColor
               />
             ) : (
               <span className="block text-balance">
-                {headline}{" "}
+                {headline}
+                <br />
                 <span className="text-primary">{highlight}</span>
               </span>
             )}
