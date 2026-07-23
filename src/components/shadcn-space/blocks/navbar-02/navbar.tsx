@@ -157,7 +157,6 @@ const navigationData: NavigationSection[] = [
     ],
   },
   { title: "FAQs", href: "/faqs/" },
-  { title: "Contact", href: "/contact/" },
 ];
 
 /** Desktop/tablet → contact form; mobile can still dial from contact page or tel links in sheet */

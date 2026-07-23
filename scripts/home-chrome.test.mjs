@@ -50,7 +50,6 @@ test("navbar-02 ships NWS nav titles (not Features/Analytics demo)", () => {
     "Galleries",
     "Areas",
     "FAQs",
-    "Contact",
   ]) {
     assert.match(
       nav,
@@ -175,8 +174,8 @@ test(
     assert.equal(result.status, 200, "home must return 200");
     assert.equal(result.overHero, "true", "at top of home, data-over-hero=true");
     assert.ok(
-      result.plainResults.length >= 4,
-      `expected Home/About/FAQs/Contact, got ${result.plainResults.length}`,
+      result.plainResults.length >= 3,
+      `expected Home/About/FAQs, got ${result.plainResults.length}`,
     );
     for (const item of result.plainResults) {
       assert.ok(

@@ -156,7 +156,9 @@ test("non-home page families use distinct layout markers", () => {
   const areas = read("src", "app", "areas-we-serve", "page.tsx");
 
   assert.ok(
-    about.includes("Serving Fort Bend") || about.includes("min-h-[42svh]"),
+    about.includes("hero-13") &&
+      about.includes("about-us-13") &&
+      about.includes("bento-grid-02"),
   );
   assert.ok(
     gallery.includes("columns-1") || gallery.includes("break-inside-avoid"),

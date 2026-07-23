@@ -82,7 +82,7 @@ export async function probeOverHeroNavColors(url = baseUrl) {
     const report = await page.evaluate(() => {
       const header = document.querySelector('header[data-navbar="nws"]');
       const overHero = header?.getAttribute("data-over-hero");
-      const plainTitles = ["Home", "About", "FAQs", "Contact"];
+      const plainTitles = ["Home", "About", "FAQs"];
       const links = [
         ...document.querySelectorAll(
           'header[data-navbar="nws"] a[data-slot="navigation-menu-link"]',
@@ -118,7 +118,7 @@ export async function probeOverHeroNavColors(url = baseUrl) {
     }));
 
     const allPlainLight =
-      plainResults.length >= 4 && plainResults.every((r) => r.isLight);
+      plainResults.length >= 3 && plainResults.every((r) => r.isLight);
     const allTriggersLight =
       triggerResults.length >= 1 && triggerResults.every((r) => r.isLight);
 
