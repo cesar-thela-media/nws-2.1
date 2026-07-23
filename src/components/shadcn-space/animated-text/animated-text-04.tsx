@@ -9,7 +9,7 @@ type RollerItem = {
 };
 
 export type AnimatedTextRollerProps = {
-  /** Static prefix (e.g. "Custom homes & remodels in") */
+  /** Static line above the roller (e.g. "Custom homes & remodels in") */
   prefix?: string;
   items: RollerItem[];
   intervalMs?: number;
@@ -18,8 +18,8 @@ export type AnimatedTextRollerProps = {
 };
 
 /**
- * animated-text-04 — vertical roller showing ONE line at a time.
- * Matches shadcn-space pattern: fixed-height clip + translateY by line height in rem.
+ * Hero location roller — one city at a time, full text visible, centered under prefix.
+ * Fixed line box + rem-step translate (not % of full stack).
  */
 const AnimatedTextRoller = ({
   prefix,
@@ -38,48 +38,53 @@ const AnimatedTextRoller = ({
     return () => clearInterval(id);
   }, [items.length, intervalMs]);
 
-  // Fixed line box (matches original demo: h-8 / 2rem steps scaled for hero)
-  // Use CSS variables so viewport + each line + translate stay in lockstep.
+  // Longest label sets min-width so layout doesn’t jump between cities
+  const longest = items.reduce(
+    (a, b) => (b.text.length > a.length ? b.text : a),
+    items[0]?.text ?? "",
+  );
+
   return (
     <span
       className={cn(
-        "inline-flex flex-col sm:flex-row sm:items-center gap-x-3 gap-y-1 justify-center text-center sm:text-left",
+        "flex w-full max-w-full flex-col items-center gap-1 sm:gap-1.5",
         className,
       )}
     >
       {prefix ? (
-        <span className="text-white whitespace-nowrap">{prefix}</span>
+        <span className="block w-full text-center text-white text-balance px-1">
+          {prefix}
+        </span>
       ) : null}
 
-      {/* Viewport: exactly one line tall, clips the rest */}
+      {/* One-line viewport — clips to a single city */}
       <span
-        className="relative block overflow-hidden text-left mx-auto sm:mx-0"
-        style={{
-          height: "1.15em",
-          minWidth: "12ch",
-        }}
+        className="relative mx-auto block w-full max-w-full overflow-hidden text-center"
+        style={{ height: "1.15em" }}
         aria-live="polite"
         aria-atomic="true"
       >
+        {/* Invisible sizer so width fits longest city without horizontal clip */}
         <span
-          className="flex flex-col transition-transform duration-700 ease-in-out will-change-transform"
-          style={{
-            // CRITICAL: use em relative to line height, NOT % of full stack
-            // Each child is 1.15em tall → step by index * 1.15em
-            transform: `translateY(calc(-${index} * 1.15em))`,
-          }}
+          className="invisible block whitespace-nowrap px-1"
+          aria-hidden
+          style={{ height: 0, overflow: "hidden" }}
+        >
+          {longest}
+        </span>
+
+        <span
+          className="flex flex-col items-center transition-transform duration-700 ease-in-out will-change-transform"
+          style={{ transform: `translateY(calc(-${index} * 1.15em))` }}
         >
           {items.map((item, i) => (
             <span
               key={`${item.text}-${i}`}
               className={cn(
-                "flex items-center justify-center sm:justify-start whitespace-nowrap",
+                "flex w-full shrink-0 items-center justify-center whitespace-nowrap px-1",
                 item.color ?? defaultColor,
               )}
-              style={{
-                height: "1.15em",
-                lineHeight: "1.15em",
-              }}
+              style={{ height: "1.15em", lineHeight: "1.15em" }}
               aria-hidden={i !== index}
             >
               {item.text}

@@ -105,7 +105,7 @@ function HeroSection({
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="text-[2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white !m-0 max-w-4xl px-1"
+            className="text-[2rem] leading-[1.15] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white !m-0 max-w-4xl w-full px-1 text-center"
           >
             {locations.length > 1 ? (
               <AnimatedTextRoller
@@ -114,7 +114,7 @@ function HeroSection({
                 intervalMs={locationIntervalMs}
               />
             ) : (
-              <span>
+              <span className="block text-balance">
                 {headline}{" "}
                 <span className="text-primary">{highlight}</span>
               </span>
