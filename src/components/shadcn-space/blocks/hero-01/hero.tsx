@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { FullBleedBackground } from "@/components/FullBleedBackground";
+import AnimatedTextRoller from "@/components/shadcn-space/animated-text/animated-text-04";
 import { motion } from "motion/react";
 import { ArrowUpRight, Star } from "lucide-react";
 
@@ -9,10 +10,22 @@ export type AvatarList = {
   image: string;
 };
 
+export type LocationRoll = {
+  /** Display name shown in the roller */
+  text: string;
+  /** Tailwind text color class */
+  color?: string;
+};
+
 type HeroSectionProps = {
   avatarList?: AvatarList[];
   headline?: string;
+  /** Static highlight (used when `locations` is empty) */
   highlight?: string;
+  /** Locations to rotate through in the hero roller */
+  locations?: LocationRoll[];
+  /** Interval in ms between rotations */
+  locationIntervalMs?: number;
   subhead?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
@@ -28,6 +41,18 @@ function HeroSection({
   avatarList = [],
   headline = "Custom homes & remodels in",
   highlight = "Richmond, TX",
+  locations = [
+    { text: "Richmond, TX", color: "text-primary" },
+    { text: "Sugar Land, TX", color: "text-amber-300" },
+    { text: "Katy, TX", color: "text-emerald-300" },
+    { text: "Fulshear, TX", color: "text-sky-300" },
+    { text: "Cinco Ranch, TX", color: "text-fuchsia-300" },
+    { text: "Rosenberg, TX", color: "text-yellow-300" },
+    { text: "Weston Lakes, TX", color: "text-rose-300" },
+    { text: "Park Row, TX", color: "text-orange-300" },
+    { text: "West Houston, TX", color: "text-teal-300" },
+  ],
+  locationIntervalMs = 2200,
   subhead = "Local team since 2007. Kitchens, baths, whole-home renovations, additions, and custom builds—planned and built with clear communication.",
   primaryCta = { label: "Book a free consult", href: "tel:2812992309" },
   secondaryCta = { label: "View our work", href: "/remodeling-gallery/" },
@@ -82,8 +107,21 @@ function HeroSection({
             transition={{ duration: 1, ease: "easeOut" }}
             className="text-[2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white !m-0 max-w-4xl px-1"
           >
-            {headline}{" "}
-            <span className="text-primary">{highlight}</span>
+            {locations.length > 1 ? (
+              <AnimatedTextRoller
+                prefix={headline}
+                items={locations}
+                intervalMs={locationIntervalMs}
+                inline
+                className="text-[2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight"
+                lineClassName="text-[2rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold"
+              />
+            ) : (
+              <span>
+                {headline}{" "}
+                <span className="text-primary">{highlight}</span>
+              </span>
+            )}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 28 }}
