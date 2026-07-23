@@ -106,7 +106,7 @@ const CTA = () => {
                   View our work
                 </Button>
                 <Button
-                  className="rounded-[4px] h-12 px-6"
+                  className="rounded-[4px] h-12 px-6 !bg-primary !text-white hover:!bg-primary/90 hover:!text-white"
                   render={<a href="tel:2812992309" />}
                 >
                   Call (281) 299-2309

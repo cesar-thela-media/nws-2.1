@@ -5,12 +5,13 @@
   "engines": {
     "node": ">=20.9.0"
   },
+  "packageManager": "bun@1.2.5",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test scripts/sitemap-routes.test.mjs scripts/design-tokens.test.mjs scripts/contrast-css.test.mjs scripts/home-chrome.test.mjs scripts/home-polish.test.mjs",
+    "test": "node --test scripts/sitemap-routes.test.mjs scripts/design-tokens.test.mjs scripts/contrast-css.test.mjs scripts/home-chrome.test.mjs scripts/home-polish.test.mjs scripts/round2-goal.test.mjs",
     "test:design": "node --test scripts/design-tokens.test.mjs scripts/contrast-css.test.mjs scripts/home-chrome.test.mjs scripts/home-polish.test.mjs",
     "test:http": "node --test scripts/sitemap-routes.test.mjs",
     "test:nav-contrast": "node scripts/home-nav-contrast.mjs",

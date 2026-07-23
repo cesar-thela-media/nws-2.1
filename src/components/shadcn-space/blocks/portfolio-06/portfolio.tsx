@@ -113,8 +113,8 @@ function ServiceCard({
           href={item.href}
           className="inline-flex items-center gap-2 text-base font-semibold text-primary hover:text-[var(--color-primary-hover,#e03e00)] mt-1 w-fit"
         >
-          Learn more
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          <span className="text-primary">Learn more</span>
+          <ArrowRight className="size-4 text-primary transition-transform duration-300 ease-out group-hover:translate-x-1.5" />
         </a>
       </div>
     </Card>
@@ -197,7 +197,7 @@ const Portfolio = ({
           setApi={setApi}
           opts={{
             align: "start",
-            loop: true,
+            loop: false,
           }}
           className="w-full"
         >

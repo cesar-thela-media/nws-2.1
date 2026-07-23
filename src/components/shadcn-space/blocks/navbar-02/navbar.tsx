@@ -62,7 +62,6 @@ const navigationData: NavigationSection[] = [
   { title: "About", href: "/about/" },
   {
     title: "Services",
-    subtitle: "What we build",
     layout: "list",
     items: [
       {
@@ -99,7 +98,6 @@ const navigationData: NavigationSection[] = [
   },
   {
     title: "Galleries",
-    subtitle: "Our work",
     layout: "grid",
     items: [
       {
@@ -130,7 +128,6 @@ const navigationData: NavigationSection[] = [
   },
   {
     title: "Areas",
-    subtitle: "Where we work",
     layout: "list",
     items: [
       {
@@ -163,6 +160,7 @@ const navigationData: NavigationSection[] = [
   { title: "Contact", href: "/contact/" },
 ];
 
+/** Desktop/tablet → contact form; mobile can still dial from contact page or tel links in sheet */
 const BookNowButton = ({
   className,
   overHero = false,
@@ -172,11 +170,11 @@ const BookNowButton = ({
 }) => (
   <Button
     className={cn(
-      "h-9 px-5 w-full lg:w-fit font-semibold !text-white hover:!text-white",
+      "h-9 px-5 w-full lg:w-fit font-semibold !bg-primary !text-white hover:!bg-primary/90 hover:!text-white",
       overHero && "shadow-md shadow-black/20",
       className,
     )}
-    render={<a href="tel:2812992309" />}
+    render={<a href="/contact/" />}
   >
     Book Now
   </Button>
@@ -218,10 +216,10 @@ const Navbar = () => {
     setIsOpen(false);
   }, [pathname]);
 
-  // !text-* required: globals `a { color: inherit }` beats unforced utilities on <a>
+  // Hover/open → primary orange (not white wash). !text-* for globals `a { color: inherit }`
   const linkTone = overHero
-    ? "text-sm font-medium !text-white/85 hover:!text-white hover:bg-white/10 data-[state=open]:bg-white/15 data-[state=open]:!text-white focus:bg-white/10 rounded-[4px] transition-colors"
-    : "text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted data-[state=open]:bg-muted data-[state=open]:text-foreground focus:bg-muted rounded-[4px] transition-colors";
+    ? "text-sm font-medium !text-white/85 hover:!text-primary hover:bg-primary/15 data-[state=open]:bg-primary/20 data-[state=open]:!text-primary focus:bg-primary/15 rounded-[4px] transition-colors"
+    : "text-sm font-medium text-muted-foreground hover:!text-primary hover:bg-primary/10 data-[state=open]:bg-primary/10 data-[state=open]:!text-primary focus:bg-primary/10 rounded-[4px] transition-colors";
 
   return (
     <header
@@ -231,7 +229,7 @@ const Navbar = () => {
         "sticky top-0 z-50 w-full border-b transition-[background-color,box-shadow,border-color,color] duration-200",
         // Force light link color on over-hero: globals `a { color: inherit }` otherwise wins
         overHero &&
-          "[&_a[data-slot=navigation-menu-link]]:!text-white/85 [&_a[data-slot=navigation-menu-link]]:hover:!text-white [&_button[data-slot=navigation-menu-trigger]]:!text-white/85 [&_button[data-slot=navigation-menu-trigger]]:hover:!text-white",
+          "[&_a[data-slot=navigation-menu-link]]:!text-white/85 [&_a[data-slot=navigation-menu-link]]:hover:!text-primary [&_button[data-slot=navigation-menu-trigger]]:!text-white/85 [&_button[data-slot=navigation-menu-trigger]]:hover:!text-primary [&_button[data-slot=navigation-menu-trigger]]:data-[state=open]:!text-primary",
         overHero
           ? "bg-transparent border-transparent shadow-none"
           : scrolled
@@ -265,15 +263,9 @@ const Navbar = () => {
                           section.layout === "grid" ? "w-md" : "w-fit",
                         )}
                       >
-                        {section.subtitle && (
-                          <p className="text-sm font-normal text-muted-foreground px-2 pb-4">
-                            {section.subtitle}
-                          </p>
-                        )}
-                        <div className="h-px w-full bg-border" />
                         <div
                           className={cn(
-                            "pt-2",
+                            "pt-1",
                             section.layout === "grid"
                               ? "grid grid-cols-2"
                               : "flex flex-col",

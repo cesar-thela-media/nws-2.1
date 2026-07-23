@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Services10 from "@/components/shadcn-space/blocks/services-10/services";
 import { serviceCards } from "@/data/services";
 
 export const metadata: Metadata = {
@@ -58,6 +59,8 @@ export default function ServicesPage() {
           </Button>
         </div>
       </section>
+
+      <Services10 />
 
       <section className="py-14 md:py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

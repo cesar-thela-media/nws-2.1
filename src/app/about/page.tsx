@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/ContactForm";
+import Feature18 from "@/components/shadcn-space/blocks/feature-18/feature";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -103,6 +104,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Distinct from home: feature-18 block (not home portfolio stack) */}
+      <Feature18 />
 
       <section className="py-16 md:py-20 bg-muted/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">

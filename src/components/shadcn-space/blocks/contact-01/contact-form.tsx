@@ -51,8 +51,29 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, terms: checked }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const webhookUrl =
+      process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
+      process.env.NEXT_PUBLIC_N8N_CONTACT_WEBHOOK_URL ||
+      "";
+    const payload = {
+      source: "nws-homes-contact",
+      ...formData,
+      submittedAt: new Date().toISOString(),
+      pageUrl: typeof window !== "undefined" ? window.location.href : "",
+    };
+    try {
+      if (webhookUrl) {
+        await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      }
+    } catch {
+      /* still show success; webhook optional in preview */
+    }
     setSubmitted(true);
   };
 

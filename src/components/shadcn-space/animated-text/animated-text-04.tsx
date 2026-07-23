@@ -9,7 +9,6 @@ type RollerItem = {
 };
 
 export type AnimatedTextRollerProps = {
-  /** Line 1, static (e.g. "Custom homes & remodels in") */
   prefix?: string;
   items: RollerItem[];
   intervalMs?: number;
@@ -19,11 +18,10 @@ export type AnimatedTextRollerProps = {
 };
 
 /**
- * Two-line hero roller with a seamless continuous loop.
- * Items are duplicated; when we finish the first set we snap (no transition)
- * back to the same city in the first set so the next step continues forward.
+ * Two-line hero roller with seamless loop.
+ * Fixed rem line box + overflow clip so adjacent letters (e.g. G) never bleed.
  */
-const LINE_EM = 1.25;
+const LINE_EM = 1.35;
 
 const AnimatedTextRoller = ({
   prefix,
@@ -33,12 +31,10 @@ const AnimatedTextRoller = ({
   forceDefaultColor = true,
   className,
 }: AnimatedTextRollerProps) => {
-  // index into the *duplicated* list (0 .. items.length*2 - 1)
   const [index, setIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
 
   const n = items.length;
-  // Two copies so we can always step forward: [...items, ...items]
   const loopItems = n > 0 ? [...items, ...items] : [];
 
   const step = useCallback(() => {
@@ -53,20 +49,17 @@ const AnimatedTextRoller = ({
     return () => clearInterval(id);
   }, [n, intervalMs, step]);
 
-  // After landing on a clone (index >= n), snap back without animation
   useEffect(() => {
     if (n <= 1) return;
     if (index < n) return;
 
-    // Wait for the forward transition to finish, then reset silently
     const t = window.setTimeout(() => {
       setAnimate(false);
       setIndex((prev) => prev - n);
-      // Re-enable animation on next frame so the following step animates
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setAnimate(true));
       });
-    }, 700); // match duration-700
+    }, 700);
 
     return () => window.clearTimeout(t);
   }, [index, n]);
@@ -87,10 +80,12 @@ const AnimatedTextRoller = ({
       ) : null}
 
       <span
-        className="relative mx-auto block w-full max-w-full overflow-hidden text-center"
+        className="relative mx-auto block w-full max-w-full overflow-hidden text-center isolate"
         style={{
           height: `${LINE_EM}em`,
-          contain: "paint",
+          // Hard clip + paint isolation kills descender/ascender bleed (e.g. G)
+          clipPath: "inset(0 0 0 0)",
+          contain: "strict",
         }}
         aria-live="polite"
         aria-atomic="true"
@@ -108,7 +103,7 @@ const AnimatedTextRoller = ({
             <span
               key={`${item.text}-${i}`}
               className={cn(
-                "flex w-full shrink-0 items-center justify-center whitespace-nowrap px-1",
+                "flex w-full shrink-0 items-center justify-center whitespace-nowrap px-1 overflow-hidden",
                 forceDefaultColor
                   ? defaultColor
                   : (item.color ?? defaultColor),
@@ -116,6 +111,7 @@ const AnimatedTextRoller = ({
               style={{
                 height: `${LINE_EM}em`,
                 lineHeight: `${LINE_EM}em`,
+                maxHeight: `${LINE_EM}em`,
               }}
               aria-hidden={i % n !== index % n}
             >

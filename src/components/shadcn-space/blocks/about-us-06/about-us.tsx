@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import DotBackground from "@/components/shadcn-space/blocks/about-us-06/dot-background";
+import { MarkerHighlight } from "@/components/shadcn-space/animated-text/animated-text-08";
 import { cn } from "@/lib/utils";
 import { motion, useInView, type Variants } from "motion/react";
 import { useRef } from "react";
@@ -107,16 +108,14 @@ function AnimatedLetters({
   );
 }
 
-/** Multi-segment headline so “Richmond” can use muted color while animating letter-by-letter. */
+/** Headline with animated-text-08 marker on “Richmond” (orange mark, white type). */
 function AnimatedHeadline({
   isInView,
 }: {
   isInView: boolean;
 }) {
-  const stagger = 0.022;
-  const first =
-    "Your remodeling and custom home partner in";
-  const second = "Richmond";
+  const stagger = 0.012; // faster than prior ~0.022
+  const first = "Your remodeling and custom home partner in";
 
   return (
     <h2
@@ -127,16 +126,16 @@ function AnimatedHeadline({
         text={first}
         isInView={isInView}
         stagger={stagger}
-        delayOffset={0.12}
+        delayOffset={0.06}
         className="inline"
       />{" "}
-      <AnimatedLetters
-        text={second}
-        isInView={isInView}
-        stagger={stagger}
-        delayOffset={0.12 + first.length * stagger}
-        className="inline text-muted-foreground"
-        letterClassName="text-muted-foreground"
+      <MarkerHighlight
+        highlight="Richmond"
+        markerColor="#ff4500"
+        highlightedTextColor="#ffffff"
+        baseColor="hsl(var(--foreground))"
+        speed={1.85}
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold leading-[1.15] tracking-tight"
       />
     </h2>
   );
@@ -149,8 +148,8 @@ const AboutUs06 = () => {
   const body =
     "NWS Custom Homes and Remodeling has served Richmond, TX and surrounding communities since 2007. Whether you're updating a kitchen, reworking a bathroom, expanding your footprint, or building new, you get one accountable team from plan through punch list.";
 
-  // Body starts after headline (~45 letters * 0.022 + buffer)
-  const bodyStartDelay = 0.95;
+  // Body starts after faster headline
+  const bodyStartDelay = 0.55;
 
   return (
     <section ref={ref}>
@@ -163,7 +162,7 @@ const AboutUs06 = () => {
                   as="p"
                   text="About NWS"
                   isInView={isInView}
-                  stagger={0.04}
+                  stagger={0.022}
                   className="text-base md:text-lg font-semibold text-primary tracking-wide !m-0"
                 />
                 <AnimatedHeadline isInView={isInView} />
@@ -182,8 +181,8 @@ const AboutUs06 = () => {
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{
-                          duration: 0.2,
-                          delay: bodyStartDelay + i * 0.008,
+                          duration: 0.15,
+                          delay: bodyStartDelay + i * 0.004,
                           ease,
                         }}
                         className="inline"
@@ -201,8 +200,8 @@ const AboutUs06 = () => {
                             : { opacity: 0, y: "0.35em" }
                         }
                         transition={{
-                          duration: 0.32,
-                          delay: bodyStartDelay + i * 0.008,
+                          duration: 0.22,
+                          delay: bodyStartDelay + i * 0.004,
                           ease,
                         }}
                         className="inline-block"

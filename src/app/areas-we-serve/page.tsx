@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AreasGrid } from "@/components/AreasGrid";
 import { ContactForm } from "@/components/ContactForm";
+import LogoCloud03 from "@/components/shadcn-space/blocks/logo-cloud-03/logo-cloud";
 import { site } from "@/data/site";
 import { locations } from "@/data/locations";
 
@@ -50,6 +51,8 @@ export default function AreasWeServePage() {
           </div>
         </div>
       </section>
+
+      <LogoCloud03 />
 
       <section className="py-16 md:py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

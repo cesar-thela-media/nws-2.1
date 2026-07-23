@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Gallery04 from "@/components/shadcn-space/blocks/gallery-04/gallery";
 import type { Gallery } from "@/data/galleries";
 
 /**
@@ -70,6 +71,9 @@ export function GalleryPage({ gallery }: { gallery: Gallery }) {
           </div>
         </div>
       </section>
+
+      {/* Extra shadcn-space gallery band for layout diversity on gallery family */}
+      <Gallery04 />
     </>
   );
 }

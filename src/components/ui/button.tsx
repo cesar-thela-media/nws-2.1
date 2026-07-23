@@ -44,20 +44,12 @@ function Button({
   className,
   variant = "default",
   size = "default",
-  nativeButton,
-  render,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-  // When `render` swaps the host (e.g. <a>), Base UI requires nativeButton=false
-  const resolvedNative =
-    nativeButton ?? (render === undefined ? true : false);
-
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
-      nativeButton={resolvedNative}
-      render={render}
       {...props}
     />
   )

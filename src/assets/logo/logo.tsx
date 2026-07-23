@@ -4,7 +4,7 @@ import { site } from "@/data/site";
 
 type LogoProps = HTMLAttributes<HTMLDivElement> & {
   /**
-   * Dark chrome (over-hero / orange footer): use light roofs+tagline asset
+   * Dark chrome (over-hero / orange footer): light roofs+tagline asset
    * so black strokes stay readable without a solid white plate.
    */
   onDark?: boolean;

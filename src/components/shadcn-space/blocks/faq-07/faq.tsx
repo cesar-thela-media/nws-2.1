@@ -79,12 +79,12 @@ export default function Faq() {
               <ArrowRight className="size-4" />
             </Button>
           </div>
-          <div className="relative h-56 lg:h-auto lg:w-96 overflow-hidden rounded-b-3xl lg:rounded-b-none lg:rounded-r-3xl">
+          <div className="relative h-56 sm:h-64 lg:h-auto lg:min-h-full lg:w-96 overflow-hidden rounded-b-3xl lg:rounded-b-none lg:rounded-r-3xl shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/hero-home-remodeled-richmond-tx.webp"
-              alt="Remodeled home in Richmond, TX"
-              className="absolute inset-0 w-full h-full object-cover"
+              src="/images/custom-homes-1.jpeg"
+              alt="Custom home project by NWS in Fort Bend"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           </div>
         </div>

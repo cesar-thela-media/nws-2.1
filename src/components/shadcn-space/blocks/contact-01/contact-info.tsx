@@ -2,12 +2,28 @@
 
 import { Separator } from "@/components/ui/separator";
 import { site } from "@/data/site";
+import { motion } from "motion/react";
 
-/** Copy block for orange contact section, light text on primary bg */
+const fade = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" as const },
+  },
+};
+
+/** Copy block for orange contact section; hours + promo animate into view */
 const ContactInfo = () => {
   return (
     <div className="flex flex-col md:gap-10 gap-8 text-white">
-      <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-left-10 duration-1000 ease-in-out fill-mode-both">
+      <motion.div
+        className="flex flex-col gap-5"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.35 }}
+        variants={fade}
+      >
         <div className="flex gap-3 items-center">
           <div className="w-2 h-2 rounded-full bg-white" />
           <p className="text-base font-medium text-white/90 !m-0">
@@ -21,9 +37,15 @@ const ContactInfo = () => {
           We typically respond within one business day. Call for a free consult
           or tell us about your project below.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-6 sm:gap-8 animate-in fade-in slide-in-from-left-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+      <motion.div
+        className="flex flex-col sm:flex-row sm:flex-wrap gap-6 sm:gap-8"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.35 }}
+        variants={fade}
+      >
         <div className="flex flex-col gap-1 min-w-[8rem]">
           <p className="text-sm font-medium text-white/70 !m-0">Office</p>
           <a
@@ -51,16 +73,28 @@ const ContactInfo = () => {
             {site.email}
           </a>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-left-10 duration-1000 delay-100 ease-in-out fill-mode-both">
+      <motion.div
+        className="flex flex-col gap-1"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.4 }}
+        variants={fade}
+      >
         <p className="text-sm font-medium text-white/70 !m-0">Location</p>
         <p className="text-base font-semibold text-white !m-0">
           {site.location}
         </p>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col gap-1">
+      <motion.div
+        className="flex flex-col gap-1"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
+      >
         <p className="text-sm font-medium text-white/70 !m-0">Business hours</p>
         <p className="text-base font-medium text-white !m-0">
           {site.hours.weekdays}
@@ -71,16 +105,22 @@ const ContactInfo = () => {
         <p className="text-base font-medium text-white/75 !m-0">
           {site.hours.sunday}
         </p>
-      </div>
+      </motion.div>
 
       <Separator
         orientation="horizontal"
         className="bg-white/25 data-[orientation=horizontal]:bg-white/25"
       />
-      <p className="text-sm text-white/85 !m-0">
+      <motion.p
+        className="text-sm text-white/85 !m-0"
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.5, ease: "easeOut", delay: 0.12 }}
+      >
         Mention this website for a free consultation and 5% off your next
         project.
-      </p>
+      </motion.p>
     </div>
   );
 };

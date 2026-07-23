@@ -28,7 +28,7 @@ export default function HomePage() {
         secondaryCta={{ label: "View our work", href: "/remodeling-gallery/" }}
         rating="5.0"
         ratingLabel="Google & Angi reviews"
-        backgroundImage="/images/hero-nws-cinematic.jpg"
+        backgroundImage="/images/hero-home-remodeled-richmond-tx.webp"
       />
 
       <AboutUs06 />
